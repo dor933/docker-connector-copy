@@ -1,0 +1,41 @@
+# Ignore build results
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore Mac and Linux file system files
+.DS_Store
+*.swp
+
+# Ignore logs
+*.log
+
+# Ignore test results
+TestResults/
+
+# Ignore other common artifacts
+*.vspscc
+*.vssscc
+_ReSharper*/
+.idea/
+
+# Ignore NuGet packages
+*.nupkg
+# Ignore package restore result
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Ignore Rider project files
+.idea/
+*.sln.iml
+/.vs/docker-routines_new
+/.vs/slnx.sqlite

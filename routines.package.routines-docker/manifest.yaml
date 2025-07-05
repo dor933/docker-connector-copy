@@ -1,0 +1,43 @@
+general:
+  id: "routines-package-routines-docker"
+  name: "Template Name"
+  description: "A template package for creating new packages"
+  publisher: "Routines"
+  version: "0.1.0"
+  os:
+    - platform: "windows"
+    - platform: "linux"
+    - platform: "macos"
+
+  releaseNotes:
+    - "Initial release"
+
+methods:
+  - name: "SayHello"
+    displayName: "Say Hello"
+    description: "Say hello to the provided name"
+    parameters:
+      - name: "name"
+        type: "text" # Options: text, password, boolean, number, object, multitext
+        displayName: "Name"
+        description: "The name to say hello to"
+        required: true # Options: true, false
+
+  - name: "SumNumbers"
+    displayName: "Sum Numbers"
+    description: "Sum the provided numbers"
+    parameters:
+      - name: "number1"
+        type: "number"
+        valueType: "integer" # Options: integer, float
+        displayName: "Number 1"
+        description: "The first number to sum"
+        required: true
+
+      - name: "number2"
+        type: "number"
+        valueType: "integer" # Options: integer, float
+        displayName: "Number 2"
+        description: "The second number to sum"
+        required: false
+        defaultValue: 1
