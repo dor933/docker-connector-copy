@@ -16,10 +16,10 @@ public class DockerHandler : IDockerHandler
 
 
 
-    public DockerHandler(string _userName, string _registry)
+    public DockerHandler(string userName, string registry)
     {
-        this._userName = _userName;
-        this._registry = _registry;
+        this._userName = userName;
+        this._registry = registry;
 
     }
 
