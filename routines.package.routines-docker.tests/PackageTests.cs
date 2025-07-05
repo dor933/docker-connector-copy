@@ -7,8 +7,8 @@ namespace routines.package.docker_routines_new.tests;
 public class PackageTests
 {
     private readonly Entrypoint _entryPoint = new();
-    private const string TEST_USERNAME = "dor93";
-    private const string TEST_PASSWORD = "yfw.xvr9raw@FTV8vat";
+    private const string TEST_USERNAME = ""; //enter your username here
+    private const string TEST_PASSWORD = ""; //enter your password here
     private const string TEST_REGISTRY = "docker.io";
     private const string TEST_IMAGE_NAME = "version-alert";
     private const string TEST_IMAGE_TAG = "latest";
