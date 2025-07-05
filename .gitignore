@@ -2,7 +2,7 @@
 bin/
 obj/
 
-# Ignore user-specific files
+
 *.user
 *.suo
 *.userosscache
@@ -39,3 +39,5 @@ artifacts/
 *.sln.iml
 /.vs/docker-routines_new
 /.vs/slnx.sqlite
+
+/.vs
