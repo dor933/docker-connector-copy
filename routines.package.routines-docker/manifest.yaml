@@ -1,9 +1,9 @@
 general:
-  id: "routines-package-routines-docker"
-  name: "Template Name"
-  description: "A template package for creating new packages"
+  id: "docker_pack"
+  name: "Docker"
+  description: "A package for managing Docker containers"
   publisher: "Routines"
-  version: "0.1.0"
+  version: "0.1.8"
   os:
     - platform: "windows"
     - platform: "linux"
@@ -13,31 +13,337 @@ general:
     - "Initial release"
 
 methods:
-  - name: "SayHello"
-    displayName: "Say Hello"
-    description: "Say hello to the provided name"
+  - name: "Login"
+    displayName: "Docker Login"
+    description: "Log in to a Docker registry"
     parameters:
-      - name: "name"
-        type: "text" # Options: text, password, boolean, number, object, multitext
-        displayName: "Name"
-        description: "The name to say hello to"
-        required: true # Options: true, false
-
-  - name: "SumNumbers"
-    displayName: "Sum Numbers"
-    description: "Sum the provided numbers"
-    parameters:
-      - name: "number1"
-        type: "number"
-        valueType: "integer" # Options: integer, float
-        displayName: "Number 1"
-        description: "The first number to sum"
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
         required: true
 
-      - name: "number2"
-        type: "number"
-        valueType: "integer" # Options: integer, float
-        displayName: "Number 2"
-        description: "The second number to sum"
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+      - name: "password"
+        type: "text"
+        displayName: "Password"
+        description: "Docker registry password"
+        required: true
+
+  - name: "PullImage"
+    displayName: "Pull Docker Image"
+    description: "Pull a Docker image from a registry"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+      - name: "imageName"
+        type: "text"
+        displayName: "Image Name"
+        description: "Name of the image to pull"
+        required: true
+
+      - name: "tag"
+        type: "text"
+        displayName: "Image Tag"
+        description: "Tag of the image to pull"
+        required: true
+
+  - name: "CreateContainer"
+    displayName: "Create Docker Container"
+    description: "Create a new Docker container"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+      - name: "imageName"
+        type: "text"
+        displayName: "Image Name"
+        description: "Name of the image"
+        required: true
+
+      - name: "tag"
+        type: "text"
+        displayName: "Image Tag"
+        description: "Tag of the image"
+        required: true
+
+      - name: "containerName"
+        type: "text"
+        displayName: "Container Name"
+        description: "Name for the container"
+        required: true
+
+      - name: "ports"
+        type: "list"
+        displayName: "Port Mappings"
+        description: "Port mappings for the container (host:container)"
         required: false
-        defaultValue: 1
+
+      - name: "volumes"
+        type: "list"
+        displayName: "Volume Mappings"
+        description: "Volume mappings for the container (host:container). Format: host:'C:\\path\\to\\host\\volume',container:'/path/to/container/volume'"
+        required: false
+
+      - name: "isRemovable"
+        type: "text"
+        displayName: "Is Removable"
+        description: "If true, the container will be removed when it is stopped"
+        required: false
+
+  - name: "StartContainer"
+    displayName: "Start Container"
+    description: "Start a Docker container"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+      - name: "containerName"
+        type: "text"
+        displayName: "Container Name"
+        description: "Name of the container to start"
+        required: true
+
+  - name: "GetContainerLogs"
+    displayName: "Get Container Logs"
+    description: "Get logs from a Docker container"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+      - name: "containerName"
+        type: "text"
+        displayName: "Container Name"
+        description: "Name of the container"
+        required: true
+
+  - name: "GetLogsWithtail"
+    displayName: "Get Container Logs with Tail"
+    description: "Get the last N lines of logs from a Docker container"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+      - name: "containerName"
+        type: "text"
+        displayName: "Container Name"
+        description: "Name of the container"
+        required: true
+
+      - name: "tail"
+        type: "text"
+        displayName: "Tail Lines"
+        description: "Number of lines to show from the end"
+        required: false
+        defaultValue: "10"
+
+  - name: "ListRunningContainers"
+    displayName: "List Running Containers"
+    description: "List all running Docker containers"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+  - name: "ListAllContainers"
+    displayName: "List All Containers"
+    description: "List all Docker containers (running and stopped)"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+  - name: "ExecCommand"
+    displayName: "Execute Command"
+    description: "Execute a command inside a Docker container"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+      - name: "containerName"
+        type: "text"
+        displayName: "Container Name"
+        description: "Name of the container"
+        required: true
+
+      - name: "command"
+        type: "text"
+        displayName: "Command"
+        description: "Command to execute inside the container"
+        required: true
+
+  - name: "StopContainer"
+    displayName: "Stop Container"
+    description: "Stop a Docker container"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+      - name: "containerName"
+        type: "text"
+        displayName: "Container Name"
+        description: "Name of the container to stop"
+        required: true
+
+      - name: "gracePeriod"
+        type: "text"
+        displayName: "Grace Period"
+        description: "Grace period for the container to stop (in seconds). Default is 10 seconds."
+        required: false
+
+  - name: "RemoveContainer"
+    displayName: "Remove Container"
+    description: "Remove a Docker container"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+      - name: "containerName"
+        type: "text"
+        displayName: "Container Name"
+        description: "Name of the container to remove"
+        required: true
+
+  - name: "KillContainer"
+    displayName: "Kill Container"
+    description: "Create, start, and then kill a Docker container"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
+
+      - name: "imageName"
+        type: "text"
+        displayName: "Image Name"
+        description: "Name of the image"
+        required: true
+
+      - name: "tag"
+        type: "text"
+        displayName: "Image Tag"
+        description: "Tag of the image"
+        required: true
+
+      - name: "containerId"
+        type: "text"
+        displayName: "Container Id"
+        description: "Id for the container (can be also container name)."
+        required: true
+
+  - name: "LogOut"
+    displayName: "Docker Logout"
+    description: "Log out from a Docker registry"
+    parameters:
+      - name: "userName"
+        type: "text"
+        displayName: "userName"
+        description: "Docker registry userName"
+        required: true
+
+      - name: "registry"
+        type: "text"
+        displayName: "Registry"
+        description: "Docker registry URL"
+        required: true
