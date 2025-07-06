@@ -64,6 +64,8 @@ public class PackageTests
 
         try
         {
+            
+            await _entryPoint.PullImage(userName, registry, imageName, tag, cancellationToken);
             var result = await _entryPoint.CreateContainer(userName, registry, imageName, tag, isRemovable, containerName, null, null, cancellationToken);
 
             Assert.NotNull(result);
@@ -181,6 +183,7 @@ public class PackageTests
 
         try
         {
+            await _entryPoint.PullImage(userName, registry, imageName, tag, cancellationToken);
             await _entryPoint.CreateContainer(userName, registry, imageName, tag, isRemovable, containerName, null, null, cancellationToken);
             await _entryPoint.StartContainer(userName, registry, containerName, cancellationToken);
 
@@ -200,15 +203,12 @@ public class PackageTests
     [Fact]
     public async Task ListRunningContainers_ReturnsSuccess()
     {
-        // Arrange
         string userName = TEST_USERNAME;
         string registry = TEST_REGISTRY;
         var cancellationToken = CancellationToken.None;
 
-        // Act
         var result = await _entryPoint.ListRunningContainers(userName, registry, cancellationToken);
 
-        // Assert
         Assert.NotNull(result);
         Assert.NotNull(result.Output);
         Assert.True(result.Status == Status.Success);
@@ -242,6 +242,7 @@ public class PackageTests
 
         try
         {
+            await _entryPoint.PullImage(userName, registry, imageName, tag, cancellationToken);
             await _entryPoint.CreateContainer(userName, registry, imageName, tag, isRemovable, containerName, null, null, cancellationToken);
             await _entryPoint.StartContainer(userName, registry, containerName, cancellationToken);
 
@@ -253,7 +254,6 @@ public class PackageTests
         }
         finally
         {
-            // Cleanup
             await _entryPoint.StopContainer(userName, registry, containerName, GRACE_PERIOD, cancellationToken);
             await _entryPoint.RemoveContainer(userName, registry, containerName, cancellationToken);
         }
@@ -274,6 +274,7 @@ public class PackageTests
 
         try
         {
+            await _entryPoint.PullImage(userName, registry, imageName, tag, cancellationToken);
             await _entryPoint.CreateContainer(userName, registry, imageName, tag, isRemovable, containerName, null, null, cancellationToken);
             await _entryPoint.StartContainer(userName, registry, containerName, cancellationToken);
 
@@ -301,10 +302,9 @@ public class PackageTests
         string containerName = $"{TEST_CONTAINER_NAME}_{Guid.NewGuid():N}";
         var cancellationToken = CancellationToken.None;
 
+        await _entryPoint.PullImage(userName, registry, imageName, tag, cancellationToken);
         await _entryPoint.CreateContainer(userName, registry, imageName, tag, isRemovable, containerName, null, null, cancellationToken);
-        
         await _entryPoint.StartContainer(userName, registry, containerName, cancellationToken);
-        
         await _entryPoint.StopContainer(userName, registry, containerName, GRACE_PERIOD, cancellationToken);
 
         var result = await _entryPoint.RemoveContainer(userName, registry, containerName, cancellationToken);
@@ -327,6 +327,7 @@ public class PackageTests
 
         try
         {
+            await _entryPoint.PullImage(userName, registry, imageName, tag, cancellationToken);
             await _entryPoint.CreateContainer(userName, registry, imageName, tag, isRemovable, containerName, null, null, cancellationToken);
             await _entryPoint.StartContainer(userName, registry, containerName, cancellationToken);
 
@@ -400,7 +401,7 @@ public class PackageTests
         var cancellationTokenSource = new CancellationTokenSource();
         cancellationTokenSource.Cancel();
 
-        await Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            await Assert.ThrowsAsync<OperationCanceledException>(async () =>
             await _entryPoint.Login(userName, registry, password, cancellationTokenSource.Token));
     }
 
