@@ -36,7 +36,7 @@ public class Entrypoint : PackageBase
         };
     }
 
-    public async Task<MethodOutput> CreateContainer(string userName, string registry, string imageName, string tag, string isRemovable, string containerName, Dictionary<string, string>? ports = null, Dictionary<string, string>? volumes = null, CancellationToken cancellationToken = default)
+    public async Task<MethodOutput> CreateContainer(string userName, string registry, string imageName, string tag, bool isRemovable, string containerName, Dictionary<string, string>? ports = null, Dictionary<string, string>? volumes = null, CancellationToken cancellationToken = default)
     {
         DockerHandler dockerHandler = new DockerHandler(userName, registry);
         BufferedCommandResult create = await dockerHandler.CreateContainer(imageName, tag, containerName, isRemovable, ports, volumes, cancellationToken);

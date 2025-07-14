@@ -3,7 +3,7 @@ general:
   name: "Docker"
   description: "A package for managing Docker containers"
   publisher: "Routines"
-  version: "0.1.8"
+  version: "0.1.9"
   os:
     - platform: "windows"
     - platform: "linux"
@@ -110,7 +110,7 @@ methods:
         required: false
 
       - name: "isRemovable"
-        type: "text"
+        type: "boolean"
         displayName: "Is Removable"
         description: "If true, the container will be removed when it is stopped"
         required: false

@@ -18,8 +18,8 @@ public class DockerHandler : IDockerHandler
 
     public DockerHandler(string userName, string registry)
     {
-        this._userName = userName;
-        this._registry = registry;
+        _userName = userName;
+        _registry = registry;
 
     }
 
@@ -57,11 +57,11 @@ public class DockerHandler : IDockerHandler
         return result;
     }
 
-    public async Task<BufferedCommandResult> CreateContainer(string imageName, string imageTag, string containerName, string isRemovable = "false", Dictionary<string, string>? ports = null, Dictionary<string, string>? volumes = null, CancellationToken cancellationToken=default)
+    public async Task<BufferedCommandResult> CreateContainer(string imageName, string imageTag, string containerName, Boolean isRemovable = false, Dictionary<string, string>? ports = null, Dictionary<string, string>? volumes = null, CancellationToken cancellationToken=default)
     {
         List<string> arguments = new List<string> { "create" };
 
-        if (isRemovable.ToLower() == "true")
+        if (isRemovable)
         {
             arguments.Add("--rm");
         }
@@ -70,13 +70,13 @@ public class DockerHandler : IDockerHandler
         arguments.Add(containerName);
 
         if (ports?.Any()==true)
-            OptionFilesBuilder.BuildPortsBindings(ports, arguments);
+            ContainerBuilderOptions.BuildPortsBindings(ports, arguments);
 
 
         if (volumes?.Any()==true)
-            OptionFilesBuilder.AttachVolumes(volumes, arguments);
+            ContainerBuilderOptions.AttachVolumes(volumes, arguments);
 
-        arguments.Add($"docker.io/dor93/{imageName}:{imageTag}");
+        arguments.Add($"{_registry}/{_userName}/{imageName}:{imageTag}");
 
         BufferedCommandResult result = await Cli.Wrap(DOCKER_UTILITY)
             .WithArguments(args => args.Add(arguments))
@@ -90,7 +90,7 @@ public class DockerHandler : IDockerHandler
 
         BufferedCommandResult result = await Cli.Wrap(DOCKER_UTILITY)
         .WithArguments(["start", containerId])
-        .ExecuteBufferedAsync();
+        .ExecuteBufferedAsync(cancellationToken);
 
         return result;
     }

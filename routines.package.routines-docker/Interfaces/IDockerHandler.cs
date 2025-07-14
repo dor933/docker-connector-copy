@@ -11,7 +11,7 @@ internal interface IDockerHandler
 
     Task<BufferedCommandResult> PushImage(string imageName, string tag, CancellationToken cancellationToken);
 
-    Task<BufferedCommandResult> CreateContainer(string imageName, string imageTag, string containerName, string isRemovable = "false", Dictionary<string, string>? ports = null, Dictionary<string, string>? volumes = null, CancellationToken cancellationToken = default);
+    Task<BufferedCommandResult> CreateContainer(string imageName, string imageTag, string containerName, bool isRemovable = false, Dictionary<string, string>? ports = null, Dictionary<string, string>? volumes = null, CancellationToken cancellationToken = default);
 
     Task<BufferedCommandResult> StartContainer(string containerId, CancellationToken cancellationToken);
 

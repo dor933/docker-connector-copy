@@ -58,7 +58,7 @@ public class PackageTests
         string registry = TEST_REGISTRY;
         string imageName = TEST_IMAGE_NAME;
         string tag = TEST_IMAGE_TAG;
-        string isRemovable = "true";
+        bool isRemovable= true;
         string containerName = $"{TEST_CONTAINER_NAME}_{Guid.NewGuid():N}";
         var cancellationToken = CancellationToken.None;
 
@@ -85,7 +85,7 @@ public class PackageTests
         string registry = TEST_REGISTRY;
         string imageName = TEST_IMAGE_NAME;
         string tag = TEST_IMAGE_TAG;
-        string isRemovable = "true";
+        bool isRemovable= true;
         string containerName = $"{TEST_CONTAINER_NAME}_{Guid.NewGuid():N}";
         var ports = new Dictionary<string, string> { { "80", "8080" } };
         var cancellationToken = CancellationToken.None;
@@ -113,7 +113,7 @@ public class PackageTests
         string registry = TEST_REGISTRY;
         string imageName = TEST_IMAGE_NAME;
         string tag = TEST_IMAGE_TAG;
-        string isRemovable = "true";
+        bool isRemovable = true;
         var ports = new Dictionary<string, string> { { "80", "8080" } };
         var volumes = new Dictionary<string, string> { { "C:/Users/DorRatzabi/Repos/Volume", "/app/myfolder" } };
         string containerName = $"{TEST_CONTAINER_NAME+Guid.NewGuid():N}";
@@ -145,7 +145,7 @@ public class PackageTests
         string registry = TEST_REGISTRY;
         string imageName = TEST_IMAGE_NAME;
         string tag = TEST_IMAGE_TAG;
-        string isRemovable = "true";
+        bool isRemovable= true;
         string containerName = $"{TEST_CONTAINER_NAME}_{Guid.NewGuid():N}";
         var cancellationToken = CancellationToken.None;
 
@@ -176,7 +176,7 @@ public class PackageTests
         string registry = TEST_REGISTRY;
         string imageName = TEST_IMAGE_NAME;
         string tag = TEST_IMAGE_TAG;
-        string isRemovable = "true";
+        bool isRemovable= true;
         string containerName = $"{TEST_CONTAINER_NAME}_{Guid.NewGuid():N}";
         string tail = LOG_TAIL_COUNT;
         var cancellationToken = CancellationToken.None;
@@ -235,7 +235,7 @@ public class PackageTests
         string registry = TEST_REGISTRY;
         string imageName = TEST_IMAGE_NAME;
         string tag = TEST_IMAGE_TAG;
-        string isRemovable = "true";
+        bool isRemovable= true;
         string containerName = $"{TEST_CONTAINER_NAME}_{Guid.NewGuid():N}";
         string command = TEST_COMMAND;
         var cancellationToken = CancellationToken.None;
@@ -267,7 +267,7 @@ public class PackageTests
         string registry = TEST_REGISTRY;
         string imageName = TEST_IMAGE_NAME;
         string tag = TEST_IMAGE_TAG;
-        string isRemovable = "true";
+        bool isRemovable= true;
         string containerName = $"{TEST_CONTAINER_NAME}_{Guid.NewGuid():N}";
         string gracePeriod = GRACE_PERIOD;
         var cancellationToken = CancellationToken.None;
@@ -298,7 +298,7 @@ public class PackageTests
         string registry = TEST_REGISTRY;
         string imageName = TEST_IMAGE_NAME;
         string tag = TEST_IMAGE_TAG;
-        string isRemovable = "true";
+        bool isRemovable= true;
         string containerName = $"{TEST_CONTAINER_NAME}_{Guid.NewGuid():N}";
         var cancellationToken = CancellationToken.None;
 
@@ -321,7 +321,7 @@ public class PackageTests
         string registry = TEST_REGISTRY;
         string imageName = TEST_IMAGE_NAME;
         string tag = TEST_IMAGE_TAG;
-        string isRemovable = "true";
+        bool isRemovable= true;
         string containerName = $"{TEST_CONTAINER_NAME}_{Guid.NewGuid():N}";
         var cancellationToken = CancellationToken.None;
 

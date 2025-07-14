@@ -7,9 +7,7 @@ namespace routines.package.docker.Utils
 
         public static JsonArray AddJsonsToArray(string[] lines)
         {
-            //test
-
-            JsonArray jsonArray = new JsonArray();
+            var jsonArray = new JsonArray();
 
             foreach (string line in lines)
             {
@@ -23,8 +21,7 @@ namespace routines.package.docker.Utils
         public static string[] NdJsonSplitter(string input)
         {
 
-            string[] lines = input
-           .Split([ "\r", "\n" ], StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = input.Split(Environment.NewLine);
 
             return lines;
 
